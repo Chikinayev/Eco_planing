@@ -12,6 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <h1>EcoPlaning</h1><hr>
     <h4>Volunteer's event's description</h4>
+    <#list images as image>
+        <img src="/images/${image.id}" height="100px" width="180" alt="Event"/><br><br>
+    </#list>
     <b>Event title</b> ${event.title}<br>
     <b>Event description</b> ${event.description}<br>
     <b>Event city</b> ${event.city}<br>

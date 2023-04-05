@@ -27,11 +27,14 @@
     </#list>
     <hr>
     <h3>Create a new event</h3>
-    <form action="/event/create" method="post">
+    <form action="/event/create" method="post" enctype="multipart/form-data">
         Event title: <input type="text" name="title" required><br><br>
         Event description: <input type="text" name="description" required><br><br>
         Event city: <input type="text" name="city" required><br><br>
         Event organizer: <input type="text" name="organizer" required><br><br>
+        Event photo1: <input type="file" name="file1" required><br><br>
+        Event photo2: <input type="file" name="file2"><br><br>
+        Event photo3: <input type="file" name="file3"><br><br>
         <input type="submit" value="add event">
     </form>
 </body>

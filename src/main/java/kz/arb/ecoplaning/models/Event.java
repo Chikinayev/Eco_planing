@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,4 +32,22 @@ public class Event {
 
     @Column(name = "organizer")
     private String organizer;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
+
+    private List<Image> images = new ArrayList<>();
+
+    private Long mainImageId;
+
+    private LocalDateTime eventCreatedDate;
+
+    @PrePersist
+    private void init(){
+        eventCreatedDate = LocalDateTime.now();
+    }
+
+    public void addImageToEvent(Image image) {
+        image.setEvent(this);
+        images.add(image);
+    }
 }
