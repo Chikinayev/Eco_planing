@@ -10,12 +10,17 @@
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <h1>EcoPlaning</h1><hr>
+    <h1>EcoPlaning</h1>
     <h4>Volunteer's events</h4>
-    <form action="/" method="get">
-        Search by title: <input type="text" name="title"><br>
-        <input type="submit" value="Search">
-    </form>
+    <#if user.email??>
+        <h3> Имя пользавателя <i>${user.name}</i></h3>
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
+            <input type="submit" value="Выйти" />
+        </form>
+    <#else >
+        <a href="/login"> Enter </a>
+    </#if>
     <#list events as event>
         <div>
             <p><b>${event.title}</b>${event.description}<br> |
@@ -25,6 +30,7 @@
         <#else>
         <h3>There are no events</h3>
     </#list>
+    <#if user.email??>
     <hr>
     <h3>Create a new event</h3>
     <form action="/event/create" method="post" enctype="multipart/form-data">
@@ -35,7 +41,9 @@
         Event photo1: <input type="file" name="file1" required><br><br>
         Event photo2: <input type="file" name="file2"><br><br>
         Event photo3: <input type="file" name="file3"><br><br>
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="add event">
     </form>
+</#if>
 </body>
 </html>

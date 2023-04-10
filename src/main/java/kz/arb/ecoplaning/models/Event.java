@@ -30,14 +30,16 @@ public class Event {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "organizer")
-    private String organizer;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
 
     private List<Image> images = new ArrayList<>();
 
     private Long mainImageId;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
 
     private LocalDateTime eventCreatedDate;
 

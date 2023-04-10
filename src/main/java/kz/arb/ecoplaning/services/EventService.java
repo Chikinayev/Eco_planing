@@ -4,12 +4,14 @@ import kz.arb.ecoplaning.models.Event;
 import kz.arb.ecoplaning.models.Image;
 import kz.arb.ecoplaning.models.User;
 import kz.arb.ecoplaning.repositories.EventRepository;
+import kz.arb.ecoplaning.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -19,13 +21,15 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class EventService {
-    public final EventRepository eventRepository;
+    private final EventRepository eventRepository;
+    private final UserRepository userRepository;
     public List<Event> listEvents(String title){
         if(title!=null) return eventRepository.findEventByTitle(title);
         return eventRepository.findAll();
     }
 
-    public void saveEvent(Event event, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
+    public void saveEvent(Principal principal, Event event, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
+        event.setUser(getUserByPrincipal(principal));
         Image image1;
         Image image2;
         Image image3;
@@ -43,10 +47,15 @@ public class EventService {
             event.addImageToEvent(image3);
         }
 
-        log.info("Saving new Event. Title: {}; Organizer: {}", event.getTitle(), event.getOrganizer());
+        log.info("Saving new Event. Title: {}; Organizer email: {}", event.getTitle(), event.getUser().getEmail());
         Event eventDb = eventRepository.save(event);
         eventDb.setMainImageId((eventDb.getImages().get(0).getId()));
         eventRepository.save(event);
+    }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal ==null) return new User();
+        return userRepository.findUserByEmail(principal.getName());
     }
 
     private Image toImageEntity(MultipartFile file) throws IOException {

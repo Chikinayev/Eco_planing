@@ -18,10 +18,10 @@
     <b>Event title</b> ${event.title}<br>
     <b>Event description</b> ${event.description}<br>
     <b>Event city</b> ${event.city}<br>
-    <b>Event organizer</b> ${event.organizer}<br>
+    <b>Event organizer</b> ${event.user.name}<br>
 
-    <form action="/event/delete/${event.id}" method="post">
-        <input type="submit" value="delete event">
-    </form>
+<#--    <form action="/event/delete/${event.id}" method="post">-->
+<#--        <input type="submit" value="delete event">-->
+<#--    </form>-->
 </body>
 </html>
