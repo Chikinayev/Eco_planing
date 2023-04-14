@@ -39,6 +39,9 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Event> events = new ArrayList<>();
 
+    public boolean isAdmin(){
+        return roles.contains(Role.ROLE_ADMIN);
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

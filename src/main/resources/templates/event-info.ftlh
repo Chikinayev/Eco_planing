@@ -18,7 +18,7 @@
     <b>Event title</b> ${event.title}<br>
     <b>Event description</b> ${event.description}<br>
     <b>Event city</b> ${event.city}<br>
-    <b>Event organizer</b> ${event.user.name}<br>
+    <b>Event organizer</b> <a href="/user/${event.user.id}">${event.user.name}<br></a>
 
 <#--    <form action="/event/delete/${event.id}" method="post">-->
 <#--        <input type="submit" value="delete event">-->
