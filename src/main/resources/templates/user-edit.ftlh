@@ -8,8 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Web_market</h1><hr>
-<h3>Редактирования пользователе ${user.name}</h3>
+<h1><a href="/" style="text-decoration: none">EcoPlaning</a></h1><hr>
+<h3>Editing of user ${user.name}</h3>
 <form action="/admin/user/edit" method="post">
     <#list roles as role>
         <div>
@@ -21,7 +21,7 @@
     </#list>
     <input type="hidden" value="${user.id}" name="userId">
     <input type="hidden" value="${_csrf.token}" name="_csrf">
-    <button type="submit">Сохранить</button>
+    <button type="submit">Save</button>
 
 </form>
 </body>
