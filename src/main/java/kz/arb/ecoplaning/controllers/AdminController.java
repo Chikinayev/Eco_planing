@@ -3,7 +3,7 @@ package kz.arb.ecoplaning.controllers;
 
 import kz.arb.ecoplaning.models.User;
 import kz.arb.ecoplaning.models.enums.Role;
-import kz.arb.ecoplaning.services.UserService;
+import kz.arb.ecoplaning.services.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class AdminController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @GetMapping("/admin")
     public String admin(Model model){
