@@ -10,14 +10,15 @@
 
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
 <h1><a href="/" style="text-decoration: none">EcoPlaning</a></h1><hr>
 <h4>Login</h4>
-<form action="/login" method="post">
-    Email: <input type="email" name="username"><br><br>
-    Password: <input type="password" name="password"><br><br>
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
+<form action="/auth/login" method="post" enctype="multipart/form-data">
+    Email: <input type="email" name="email" required><br><br>
+    Password: <input type="password" name="password" required><br><br>
+<#--    <input type="hidden" name="Authorization" value="Bearer your-token-here">-->
+<#--    <input type="hidden" name="_csrf" value="${_csrf.token}">-->
     <input type="submit" value="Login"/>
 </form>
 <a href="/registration">Registration</a>

@@ -19,7 +19,7 @@
     Email: <input type="email" name="email"><br><br>
     Phone number: <input type="text" name="phoneNumber" ><br><br>
     Password: <input type="password" name="password"><br><br>
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
+<#--    <input type="hidden" name="_csrf" value="${_csrf.token}">-->
     <input type="submit" value="Register"/>
 </form>
 <#if errorMessage??>

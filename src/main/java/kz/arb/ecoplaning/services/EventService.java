@@ -12,9 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,7 +52,7 @@ public class EventService {
 
     public User getUserByPrincipal(Principal principal) {
         if (principal ==null) return new User();
-        return userRepository.findUserByEmail(principal.getName());
+        return userRepository.findUserByEmail(principal.getName()).orElse(null);
     }
 
     private Image toImageEntity(MultipartFile file) throws IOException {

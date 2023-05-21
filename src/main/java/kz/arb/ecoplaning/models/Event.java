@@ -32,7 +32,6 @@ public class Event {
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
-
     private List<Image> images = new ArrayList<>();
 
     private Long mainImageId;

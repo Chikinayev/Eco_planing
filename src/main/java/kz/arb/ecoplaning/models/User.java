@@ -23,15 +23,20 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "phoneNumber")
     private String phoneNumber;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "firstName")
+    private String firstName;
+    @Column(name = "lastName")
+    private String lastName;
     @Column(name = "active")
     private boolean active;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="image_id")
-    private Image avatar;
+    @Column(name = "city")
+    private String city;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Image> images = new ArrayList<>();
     @Column(name = "password")
     private String password;
+    @Column(name = "rating")
+    private Integer rating;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
@@ -71,4 +76,21 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
+
+    public String getFio() {
+        return firstName + " " + lastName;
+    }
+
+    public UserDto getDto() {
+        UserDto userDto = new UserDto();
+        userDto.fio = this.getFio();
+        userDto.email = this.getEmail();
+        userDto.role = this.getRoles();
+        userDto.rating = this.getRating();
+        userDto.phone = this.getPhoneNumber();
+        return userDto;
+    }
+
+
+
 }
