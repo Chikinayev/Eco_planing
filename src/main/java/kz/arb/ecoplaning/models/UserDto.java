@@ -3,6 +3,7 @@ package kz.arb.ecoplaning.models;
 
 import kz.arb.ecoplaning.models.enums.Role;
 
+import java.util.List;
 import java.util.Set;
 
 public class UserDto {
@@ -11,4 +12,5 @@ public class UserDto {
     public String phone;
     public Set<Role> role;
     public Integer rating;
+//    public List<Image> imgUrls;
 }

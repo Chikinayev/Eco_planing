@@ -32,7 +32,9 @@ public class UserServiceImpl implements UserService {
             if (user.getRoles().contains(Role.ROLE_ADMIN)){
                 throw new RuntimeException("вы не можете быть Админом");
             }
+//            user.setRoles();
             user.setActive(true);
+            user.setRating(100);
             userRepository.save(user);
             log.info("Saving new User with email{}:", user.getEmail());
             return true;

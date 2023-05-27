@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.*;
@@ -88,6 +89,7 @@ public class User implements UserDetails {
         userDto.role = this.getRoles();
         userDto.rating = this.getRating();
         userDto.phone = this.getPhoneNumber();
+//        userDto.imgUrls = this.getImages();
         return userDto;
     }
 

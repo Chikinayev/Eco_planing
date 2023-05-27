@@ -4,8 +4,12 @@ package kz.arb.ecoplaning.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Entity
 @Table(name="images")

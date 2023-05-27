@@ -1,5 +1,6 @@
 package kz.arb.ecoplaning.controllers;
 
+import kz.arb.ecoplaning.models.AuthUserDto;
 import kz.arb.ecoplaning.models.ResponseToken;
 import kz.arb.ecoplaning.models.User;
 import kz.arb.ecoplaning.services.AuthenticationService;
@@ -7,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.PermitAll;
+import java.util.List;
 
 
 @RestController

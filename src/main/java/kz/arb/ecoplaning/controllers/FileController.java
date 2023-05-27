@@ -21,6 +21,7 @@ public class FileController {
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+
         Image image = new Image();
         imageRepository.save(image);
 
