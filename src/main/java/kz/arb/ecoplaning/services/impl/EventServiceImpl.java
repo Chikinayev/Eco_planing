@@ -68,4 +68,13 @@ public class EventServiceImpl implements EventService {
             eventRepository.save(event);
         }
     }
+
+    @Override
+    public void deleteEvent(Long userId, Long eventId) {
+        Event event = eventRepository.findById(eventId).orElse(null);
+        User user = userService.findUserById(userId);
+        if (event != null && user != null) {
+            eventRepository.deleteById(eventId);
+        }
+    }
 }

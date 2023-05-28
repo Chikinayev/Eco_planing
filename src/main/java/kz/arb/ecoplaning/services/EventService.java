@@ -15,4 +15,6 @@ public interface EventService {
 
     void subscribe(Long userId, Long eventId);
 
+    void deleteEvent(Long userId, Long eventId);
+
 }

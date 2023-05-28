@@ -49,6 +49,12 @@ public class EventController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    @PostMapping("/deleteEvent")
+    public ResponseEntity<Void> deleteEvent(@RequestParam Long userId, @RequestParam Long eventId) {
+        eventService.deleteEvent(userId, eventId);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
 
 
 }
