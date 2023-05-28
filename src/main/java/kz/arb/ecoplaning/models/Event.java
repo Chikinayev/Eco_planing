@@ -29,7 +29,7 @@ public class Event {
 
     @Column(name = "city")
     private String city;
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "signed")
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<User> subscribers;
 
 
