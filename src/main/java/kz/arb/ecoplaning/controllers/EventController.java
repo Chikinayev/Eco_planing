@@ -1,10 +1,9 @@
 package kz.arb.ecoplaning.controllers;
 
 
-import kz.arb.ecoplaning.models.Event;
+import kz.arb.ecoplaning.models.EventDto;
 import kz.arb.ecoplaning.models.EventList;
 import kz.arb.ecoplaning.services.EventService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,14 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/Event")
-@RequiredArgsConstructor
+@RequestMapping("/event")
 public class EventController {
 
     private final EventService eventService;
+
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     @PostMapping("/eventListByID")
     public ResponseEntity<List<EventList>> getEvents(@RequestBody Long userID) {
@@ -27,12 +29,12 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @PostMapping("/eventListByID")
-    public ResponseEntity<List<EventList>> saveEvent(@RequestBody Long userID) {
+    @PostMapping("/saveEvent")
+    public ResponseEntity<Void> saveEvent(@RequestBody EventDto eventDto) {
 
-        List<EventList> events = eventService.getEventListByUser(userID);
+        eventService.saveEvent(eventDto);
 
-        return new ResponseEntity<>(events, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 

@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-
     public boolean createUser(User user){
         if(userRepository.findUserByEmail(user.getEmail()).isEmpty()){
             user.setActive(true);
