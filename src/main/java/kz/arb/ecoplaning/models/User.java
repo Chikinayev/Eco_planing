@@ -46,8 +46,13 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Event> events = new ArrayList<>();
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    private List<Event> signed;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "events_subscribers"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private List<Event> signed;
     public boolean isAdmin(){
         return roles.contains(Role.ROLE_ADMIN);
     }
