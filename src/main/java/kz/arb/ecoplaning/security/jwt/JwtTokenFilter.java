@@ -1,5 +1,8 @@
 package kz.arb.ecoplaning.security.jwt;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -25,6 +28,13 @@ public class JwtTokenFilter extends GenericFilterBean {
         if (path.equals("/auth/login") || path.equals("/auth/registration")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
+        }
+        if (jwtToken != null && provider.validateToken(jwtToken)) {
+            Authentication authentication = provider.getAuthentication(jwtToken);
+            if (authentication != null) {
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+            filterChain.doFilter(servletRequest, servletResponse);
         }
     }
 }

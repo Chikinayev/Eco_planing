@@ -39,4 +39,16 @@ public class Image {
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private User user;
+
+    public static Image of(MultipartFile file, User user) throws IOException {
+        Image image = new Image();
+        image.setName(file.getName());
+        image.setContentType(file.getContentType());
+        image.setOriginalImageName(file.getOriginalFilename());
+        image.setBytes(file.getBytes());
+        image.setUser(user);
+        return image;
+    }
+
+
 }

@@ -79,4 +79,10 @@ public class JwtTokenProvider {
         roles.forEach(role -> result.add(role.name()));
         return result;
     }
+
+    private String getToken(){
+        return "as";
+    }
+
+
 }

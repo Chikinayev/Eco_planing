@@ -76,5 +76,10 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Faild to retrive email : " + email));
     }
+
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Faild to retrive id : " + id));
+    }
 }
 

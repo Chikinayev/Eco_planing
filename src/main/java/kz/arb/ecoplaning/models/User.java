@@ -84,12 +84,21 @@ public class User implements UserDetails {
 
     public UserDto getDto() {
         UserDto userDto = new UserDto();
+        userDto.id = this.getId();
         userDto.fio = this.getFio();
         userDto.email = this.getEmail();
         userDto.role = this.getRoles();
         userDto.rating = this.getRating();
         userDto.phone = this.getPhoneNumber();
-//        userDto.imgUrls = this.getImages();
+        userDto.imgIds = new ArrayList<>();
+        for (Image image: this.images){
+            userDto.imgIds.add(image.getId());
+        }
+        userDto.eventIds = new ArrayList<>();
+        for (Event event: this.getEvents()){
+            userDto.eventIds.add(event.getId());
+        }
+
         return userDto;
     }
 

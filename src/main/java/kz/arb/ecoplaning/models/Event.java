@@ -51,4 +51,14 @@ public class Event {
         image.setEvent(this);
         images.add(image);
     }
+
+    public EventList getEventList() {
+        EventList eventList = new EventList();
+        eventList.id = this.getId();
+        eventList.title = this.getTitle();
+        eventList.eventCreatedDate = this.getEventCreatedDate();
+        return eventList;
+    }
+
+
 }
