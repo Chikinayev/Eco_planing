@@ -27,6 +27,14 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
+    @PostMapping("/eventListByID")
+    public ResponseEntity<List<EventList>> saveEvent(@RequestBody Long userID) {
+
+        List<EventList> events = eventService.getEventListByUser(userID);
+
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
+
 
 
 }

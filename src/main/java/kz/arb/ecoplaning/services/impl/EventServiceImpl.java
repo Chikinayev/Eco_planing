@@ -1,9 +1,6 @@
 package kz.arb.ecoplaning.services.impl;
 
-import kz.arb.ecoplaning.models.Event;
-import kz.arb.ecoplaning.models.EventList;
-import kz.arb.ecoplaning.models.Image;
-import kz.arb.ecoplaning.models.User;
+import kz.arb.ecoplaning.models.*;
 import kz.arb.ecoplaning.repositories.EventRepository;
 import kz.arb.ecoplaning.repositories.UserRepository;
 import kz.arb.ecoplaning.security.jwt.JwtTokenProvider;
@@ -42,4 +39,14 @@ public class EventServiceImpl implements EventService {
         return eventLists;
     }
 
+    @Override
+    public void saveEvent(EventDto eventDto) {
+        if (eventDto == null) {
+            return;
+        }
+        Event event = Event.of(eventDto);
+        User createdUser = userService.findUserById(eventDto.createUser.id);
+        event.setUser(createdUser);
+        eventRepository.save(event);
+    }
 }

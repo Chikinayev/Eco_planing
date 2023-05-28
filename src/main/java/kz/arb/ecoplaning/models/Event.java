@@ -40,6 +40,9 @@ public class Event {
     @JoinColumn
     private User user;
 
+    @Column(name = "eventDay")
+    private LocalDateTime eventDay;
+
     private LocalDateTime eventCreatedDate;
 
     @PrePersist
@@ -56,8 +59,20 @@ public class Event {
         EventList eventList = new EventList();
         eventList.id = this.getId();
         eventList.title = this.getTitle();
-        eventList.eventCreatedDate = this.getEventCreatedDate();
+        eventList.eventDay = this.getEventDay();
         return eventList;
+    }
+
+
+    public static Event of(EventDto eventDto) {
+        Event event = new Event();
+        event.setId(eventDto.id);
+        event.setTitle(eventDto.title);
+        event.setDescription(eventDto.description);
+        event.setCity(eventDto.city);
+        event.setEventCreatedDate(eventDto.eventCreatedDate);
+        event.setEventDay(eventDto.eventDay);
+        return event;
     }
 
 

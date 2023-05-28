@@ -5,5 +5,5 @@ import java.time.LocalDateTime;
 public class EventList {
     public Long id;
     public String title;
-    public LocalDateTime eventCreatedDate;
+    public LocalDateTime eventDay;
 }

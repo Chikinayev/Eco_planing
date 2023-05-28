@@ -2,8 +2,10 @@ package kz.arb.ecoplaning.services.impl;
 
 
 import kz.arb.ecoplaning.models.User;
+import kz.arb.ecoplaning.models.UserDto;
 import kz.arb.ecoplaning.models.enums.Role;
 import kz.arb.ecoplaning.repositories.UserRepository;
+import kz.arb.ecoplaning.security.jwt.JwtTokenProvider;
 import kz.arb.ecoplaning.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
 
     public boolean createUser(User user){
@@ -80,6 +83,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Faild to retrive id : " + id));
+    }
+
+    @Override
+    public UserDto getUserDto(String token) {
+        if (token != null && token.startsWith("Bearer_")) {
+            token = token.substring(7);
+
+            String email = jwtTokenProvider.getUserEmail(token);
+            User user = findUserByEmail(email);
+            return user.getDto();
+        }
+
+        return null;
     }
 }
 
