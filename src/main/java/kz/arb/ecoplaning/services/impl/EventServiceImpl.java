@@ -59,7 +59,16 @@ public class EventServiceImpl implements EventService {
         for (Event event: all) {
             eventDtos.add(event.getEventDto());
         }
-
         return eventDtos;
+    }
+
+    @Override
+    public void subscribe(Long userId, Long eventId) {
+        Event event = eventRepository.findById(eventId).orElse(null);
+        User user = userService.findUserById(userId);
+        if (event != null && user != null) {
+            event.getSubscribers().add(user);
+            eventRepository.save(event);
+        }
     }
 }

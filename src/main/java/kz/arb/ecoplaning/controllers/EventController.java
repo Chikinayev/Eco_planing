@@ -43,6 +43,12 @@ public class EventController {
         return new ResponseEntity<>(allEvent, HttpStatus.OK);
     }
 
+    @PostMapping("/subscribe")
+    public ResponseEntity<Void> subscribe(@RequestParam Long userId, @RequestParam Long eventId) {
+        eventService.subscribe(userId, eventId);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
 
 
 }

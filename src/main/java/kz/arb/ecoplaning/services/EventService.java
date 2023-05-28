@@ -13,4 +13,6 @@ public interface EventService {
 
     List<EventDto> getAllEventByEventDayAfter();
 
+    void subscribe(Long userId, Long eventId);
+
 }
