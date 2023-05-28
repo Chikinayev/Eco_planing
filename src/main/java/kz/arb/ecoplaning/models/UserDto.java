@@ -13,6 +13,7 @@ public class UserDto {
     public String phone;
     public Set<Role> role;
     public Integer rating;
+
+    public String description;
     public List<Long> imgIds;
-    public List<Long> eventIds;
 }

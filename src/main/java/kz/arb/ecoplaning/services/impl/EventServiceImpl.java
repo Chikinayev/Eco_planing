@@ -1,6 +1,7 @@
 package kz.arb.ecoplaning.services.impl;
 
 import kz.arb.ecoplaning.models.Event;
+import kz.arb.ecoplaning.models.EventList;
 import kz.arb.ecoplaning.models.Image;
 import kz.arb.ecoplaning.models.User;
 import kz.arb.ecoplaning.repositories.EventRepository;
@@ -15,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,9 +29,17 @@ public class EventServiceImpl implements EventService {
     private final UserService userService;
 
     @Override
-    public List<Event> getEventByUser(Long userId) {
+    public List<EventList> getEventListByUser(Long userId) {
         User user = userService.findUserById(userId);
-        return eventRepository.getEventByUser(user);
+        List<EventList> eventLists = new ArrayList<>();
+        List<Event> events = eventRepository.getEventByUser(user);
+        if (events.isEmpty()) {
+            return Collections.emptyList();
+        }
+        for (Event event: events) {
+            eventLists.add(event.getEventList());
+        }
+        return eventLists;
     }
 
 }

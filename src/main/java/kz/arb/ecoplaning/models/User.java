@@ -36,6 +36,8 @@ public class User implements UserDetails {
     private List<Image> images = new ArrayList<>();
     @Column(name = "password")
     private String password;
+    @Column(name = "Description")
+    private String description;
     @Column(name = "rating")
     private Integer rating;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -91,14 +93,10 @@ public class User implements UserDetails {
         userDto.rating = this.getRating();
         userDto.phone = this.getPhoneNumber();
         userDto.imgIds = new ArrayList<>();
+        userDto.description = this.getDescription();
         for (Image image: this.images){
             userDto.imgIds.add(image.getId());
         }
-        userDto.eventIds = new ArrayList<>();
-        for (Event event: this.getEvents()){
-            userDto.eventIds.add(event.getId());
-        }
-
         return userDto;
     }
 
