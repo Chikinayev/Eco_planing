@@ -37,6 +37,12 @@ public class EventController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    @PostMapping("/getEvents")
+    public ResponseEntity<List<EventDto>> getEvents() {
+        List<EventDto> allEvent = eventService.getAllEventByEventDayAfter();
+        return new ResponseEntity<>(allEvent, HttpStatus.OK);
+    }
+
 
 
 }

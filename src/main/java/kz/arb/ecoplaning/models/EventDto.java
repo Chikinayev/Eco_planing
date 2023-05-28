@@ -10,6 +10,7 @@ public class EventDto {
     public String city;
     public UserDto createUser;
     public List<UserDto> subscribers;
+    public int subscribersCount;
     public LocalDateTime eventCreatedDate;
     public LocalDateTime eventDay;
 }

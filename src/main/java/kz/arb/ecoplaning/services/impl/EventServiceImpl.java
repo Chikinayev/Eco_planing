@@ -13,8 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -48,5 +50,16 @@ public class EventServiceImpl implements EventService {
         User createdUser = userService.findUserById(eventDto.createUser.id);
         event.setUser(createdUser);
         eventRepository.save(event);
+    }
+
+    @Override
+    public List<EventDto> getAllEventByEventDayAfter() {
+        List<Event> all = eventRepository.findByEventDayAfter(LocalDateTime.now());
+        List<EventDto> eventDtos = new ArrayList<>();
+        for (Event event: all) {
+            eventDtos.add(event.getEventDto());
+        }
+
+        return eventDtos;
     }
 }

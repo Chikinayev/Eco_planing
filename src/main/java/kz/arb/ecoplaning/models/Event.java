@@ -29,6 +29,8 @@ public class Event {
 
     @Column(name = "city")
     private String city;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<User> subscribers;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
@@ -61,6 +63,18 @@ public class Event {
         eventList.title = this.getTitle();
         eventList.eventDay = this.getEventDay();
         return eventList;
+    }
+
+    public EventDto getEventDto() {
+        EventDto eventDto = new EventDto();
+        eventDto.id = this.getId();
+        eventDto.title = this.getTitle();
+        eventDto.description = this.getDescription();
+        eventDto.city = this.getCity();
+        eventDto.eventCreatedDate = this.getEventCreatedDate();
+        eventDto.eventDay = this.getEventDay();
+        eventDto.subscribersCount = this.getSubscribers().size();
+        return eventDto;
     }
 
 

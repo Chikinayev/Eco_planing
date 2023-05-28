@@ -5,11 +5,14 @@ import kz.arb.ecoplaning.models.Event;
 import kz.arb.ecoplaning.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findEventByTitle(String title);
 
     List<Event> getEventByUser(User user);
+
+    List<Event> findByEventDayAfter(LocalDateTime currentDateTime);
 
 }
