@@ -67,7 +67,11 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(eventId).orElse(null);
         User user = userService.findUserById(userId);
         if (event != null && user != null) {
-            event.getSubscribers().add(user);
+            for (User user1: event.getSubscribers()){
+                if (!user1.getId().equals(userId)){
+                    event.getSubscribers().add(user);
+                }
+            }
             eventRepository.save(event);
         }
     }
