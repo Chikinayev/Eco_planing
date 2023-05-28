@@ -14,10 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -67,11 +64,7 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(eventId).orElse(null);
         User user = userService.findUserById(userId);
         if (event != null && user != null) {
-            for (User user1: event.getSubscribers()){
-                if (!user1.getId().equals(userId)){
-                    event.getSubscribers().add(user);
-                }
-            }
+            event.getSubscribers().add(user);
             eventRepository.save(event);
         }
     }

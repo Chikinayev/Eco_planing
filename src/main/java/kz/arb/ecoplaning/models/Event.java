@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -35,7 +36,7 @@ public class Event {
             , joinColumns = @JoinColumn(name = "event_id")
             , inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> subscribers;
+    private Set<User> subscribers;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
