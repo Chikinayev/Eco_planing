@@ -71,10 +71,10 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void deleteEvent(Long userId, Long eventId) {
-        Event event = eventRepository.findById(eventId).orElse(null);
-        User user = userService.findUserById(userId);
-        if (event != null && user != null) {
-            eventRepository.deleteById(eventId);
-        }
+//        Event event = eventRepository.findById(eventId).orElse(null);
+//        User user = userService.findUserById(userId);
+//        if (event != null && user != null) {
+//        }
+        eventRepository.deleteById(eventId);
     }
 }
