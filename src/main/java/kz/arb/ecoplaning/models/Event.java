@@ -29,12 +29,7 @@ public class Event {
 
     @Column(name = "city")
     private String city;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "events_subscribers",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "signed")
     private List<User> subscribers;
 
 
