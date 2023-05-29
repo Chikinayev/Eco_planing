@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class Event {
             , joinColumns = @JoinColumn(name = "event_id")
             , inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<User> subscribers;
+    private Set<User> subscribers = new HashSet<>();
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
