@@ -36,8 +36,9 @@ public class Event {
             name = "events_subscribers"
             , joinColumns = @JoinColumn(name = "event_id")
             , inverseJoinColumns = @JoinColumn(name = "user_id")
+            , uniqueConstraints = @UniqueConstraint(columnNames = {"event_id", "user_id"})
     )
-    private Set<User> subscribers = new HashSet<>();
+    private List<User> subscribers = new ArrayList<>();
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")

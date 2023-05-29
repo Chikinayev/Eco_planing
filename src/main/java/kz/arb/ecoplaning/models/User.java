@@ -52,7 +52,7 @@ public class User implements UserDetails {
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "event_id")
     )
-    private Set<Event> signed = new HashSet<>();
+    private List<Event> signed = new ArrayList<>();
     public boolean isAdmin(){
         return roles.contains(Role.ROLE_ADMIN);
     }

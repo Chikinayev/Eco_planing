@@ -75,7 +75,6 @@ public class EventServiceImpl implements EventService {
         User user = userService.findUserById(userId);
         if (event != null && user != null && event.getUser().getId().equals(userId)) {
             user.getEvents().remove(event);
-            user.getSigned().remove(event);
             eventRepository.deleteById(eventId);
         }
 
