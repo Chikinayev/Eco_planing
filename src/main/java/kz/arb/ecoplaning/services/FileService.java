@@ -9,4 +9,6 @@ public interface FileService {
     void uploadFile(MultipartFile file, String token);
 
     Image loadFile(Long id);
+
+    void deleteFile(Long userId);
 }

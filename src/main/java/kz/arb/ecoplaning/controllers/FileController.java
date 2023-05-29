@@ -45,6 +45,14 @@ public class FileController {
     }
 
 
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deleteFile(@RequestParam Long userId) {
+
+        this.fileService.deleteFile(userId);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
 
 
 }

@@ -17,4 +17,6 @@ public interface EventService {
 
     void deleteEvent(Long userId, Long eventId);
 
+    EventDto getEventDtoByID(Long id);
+
 }

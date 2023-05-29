@@ -36,4 +36,9 @@ public class FileServiceImpl implements FileService {
     public Image loadFile(Long id) {
         return this.imageRepository.getImageById(id);
     }
+
+    @Override
+    public void deleteFile(Long userId) {
+        this.imageRepository.deleteImageByUserId(userId);
+    }
 }

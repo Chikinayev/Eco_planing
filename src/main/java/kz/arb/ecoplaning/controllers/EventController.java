@@ -29,6 +29,17 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
+    @PostMapping("/eventDtoByID")
+    public ResponseEntity<EventDto> getEventDto(@RequestBody Long userID) {
+
+        EventDto eventDtoByID = eventService.getEventDtoByID(userID);
+
+        return new ResponseEntity<>(eventDtoByID, HttpStatus.OK);
+    }
+
+
+
+
     @PostMapping("/saveEvent")
     public ResponseEntity<Void> saveEvent(@RequestBody EventDto eventDto) {
 
