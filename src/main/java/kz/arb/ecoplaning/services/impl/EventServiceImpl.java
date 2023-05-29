@@ -61,22 +61,17 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void subscribe(Long userId, Long eventId) {
-        Event event = eventRepository.findById(eventId).orElse(null);
-        User user = userService.findUserById(userId);
-        if (event != null && user != null) {
-            event.getSubscribers().add(user);
-            eventRepository.save(event);
+        List<Long> subscribersByEvent = eventRepository.getSubscribersByEvent(eventId);
+        System.out.println("aaaa" + subscribersByEvent);
+        if (!subscribersByEvent.contains(userId)){
+            eventRepository.addSubscribers(eventId, userId);
         }
     }
 
     @Override
     public void deleteEvent(Long userId, Long eventId) {
-        Event event = eventRepository.findById(eventId).orElse(null);
-        User user = userService.findUserById(userId);
-        if (event != null && user != null && event.getUser().getId().equals(userId)) {
-            user.getEvents().remove(event);
-            eventRepository.deleteById(eventId);
-        }
+        System.out.println("aaaaaaaaaa");
+        eventRepository.deleteEventById(eventId, userId);
 
     }
 }
