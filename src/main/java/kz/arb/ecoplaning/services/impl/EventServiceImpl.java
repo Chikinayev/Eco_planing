@@ -50,6 +50,19 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<EventDto> getEventByName(String name) {
+        List<Event> events = eventRepository.findByTitleContaining(name);
+        System.out.println("sssss" + events.size());
+        List<EventDto> eventDtos = new ArrayList<>();
+
+        for (Event event: events) {
+            System.out.println("dddd" + event.getTitle());
+            eventDtos.add(event.getEventDto());
+        }
+        return eventDtos;
+    }
+
+    @Override
     public void uploadFile(MultipartFile file, String id) {
         Long eventId = Long.parseLong(id);
         Event event = eventRepository.getById(eventId);

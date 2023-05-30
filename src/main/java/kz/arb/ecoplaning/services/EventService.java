@@ -19,6 +19,7 @@ public interface EventService {
     void deleteEvent(Long userId, Long eventId);
 
     EventDto getEventDtoByID(Long id);
+    List<EventDto> getEventByName(String name);
 
     void uploadFile(MultipartFile file, String id);
 }

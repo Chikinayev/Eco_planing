@@ -38,6 +38,14 @@ public class EventController {
         return new ResponseEntity<>(eventDtoByID, HttpStatus.OK);
     }
 
+    @PostMapping("/getEventByName")
+    public ResponseEntity<List<EventDto>> getEventByName(@RequestBody String name) {
+        System.out.println("aaaaa"+ name);
+        List<EventDto> eventByName = eventService.getEventByName(name.toLowerCase());
+
+        return new ResponseEntity<>(eventByName, HttpStatus.OK);
+    }
+
 
 
 

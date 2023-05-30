@@ -13,4 +13,5 @@ public class EventDto {
     public int subscribersCount;
     public LocalDateTime eventCreatedDate;
     public LocalDateTime eventDay;
+    public Long imageId;
 }
