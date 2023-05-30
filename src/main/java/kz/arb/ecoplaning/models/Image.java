@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 @Entity
 @Table(name="images")
@@ -34,19 +32,29 @@ public class Image {
     @Lob
     private byte[] bytes;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Event event;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
-    public static Image of(MultipartFile file, User user) throws IOException {
+    public static Image ofUser(MultipartFile file, User user) throws IOException {
         Image image = new Image();
         image.setName(file.getName());
         image.setContentType(file.getContentType());
         image.setOriginalImageName(file.getOriginalFilename());
         image.setBytes(file.getBytes());
         image.setUser(user);
+        return image;
+    }
+
+    public static Image ofEvent(MultipartFile file, Event event) throws IOException {
+        Image image = new Image();
+        image.setName(file.getName());
+        image.setContentType(file.getContentType());
+        image.setOriginalImageName(file.getOriginalFilename());
+        image.setBytes(file.getBytes());
+        image.setEvent(event);
         return image;
     }
 

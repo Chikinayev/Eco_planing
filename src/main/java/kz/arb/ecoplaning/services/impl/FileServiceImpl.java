@@ -24,7 +24,7 @@ public class FileServiceImpl implements FileService {
             String email = jwtTokenProvider.getUserEmail(token);
             User user = userService.findUserByEmail(email);
             try {
-                Image image = Image.of(file, user);
+                Image image = Image.ofUser(file, user);
                 this.imageRepository.save(image);
             } catch (Exception e) {
                 throw new RuntimeException("Произашло ошибка при загрузке :: " + e.getMessage());

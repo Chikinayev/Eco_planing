@@ -2,7 +2,7 @@ package kz.arb.ecoplaning.services.impl;
 
 import kz.arb.ecoplaning.models.*;
 import kz.arb.ecoplaning.repositories.EventRepository;
-import kz.arb.ecoplaning.repositories.UserRepository;
+import kz.arb.ecoplaning.repositories.ImageRepository;
 import kz.arb.ecoplaning.security.jwt.JwtTokenProvider;
 import kz.arb.ecoplaning.services.EventService;
 import kz.arb.ecoplaning.services.UserService;
@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -23,6 +21,7 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+    private final ImageRepository imageRepository;
 
     @Override
     public List<EventList> getEventListByUser(Long userId) {
@@ -51,14 +50,28 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void saveEvent(EventDto eventDto) {
+    public void uploadFile(MultipartFile file, String id) {
+        Long eventId = Long.parseLong(id);
+        Event event = eventRepository.getById(eventId);
+        try {
+
+            Image image = Image.ofEvent(file, event);
+            imageRepository.save(image);
+        } catch (Exception e) {
+            throw new RuntimeException("Произашло ошибка при загрузке :: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public EventDto saveEvent(EventDto eventDto) {
         if (eventDto == null) {
-            return;
+            return null;
         }
         Event event = Event.of(eventDto);
         User createdUser = userService.findUserById(eventDto.createUser.id);
         event.setUser(createdUser);
-        eventRepository.save(event);
+        Event save = eventRepository.save(event);
+        return save.getEventDto();
     }
 
     @Override
@@ -83,6 +96,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public void deleteEvent(Long userId, Long eventId) {
         System.out.println("aaaaaaaaaa");
+        imageRepository.deleteImageByEventId(eventId);
         eventRepository.deleteEventById(eventId, userId);
 
     }

@@ -7,6 +7,7 @@ import kz.arb.ecoplaning.services.EventService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -41,11 +42,11 @@ public class EventController {
 
 
     @PostMapping("/saveEvent")
-    public ResponseEntity<Void> saveEvent(@RequestBody EventDto eventDto) {
+    public ResponseEntity<Long> saveEvent(@RequestBody EventDto eventDto) {
 
-        eventService.saveEvent(eventDto);
+        EventDto eventDto1 = eventService.saveEvent(eventDto);
 
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(eventDto1.id, HttpStatus.OK);
     }
 
     @PostMapping("/getEvents")
@@ -64,6 +65,16 @@ public class EventController {
     public ResponseEntity<Void> deleteEvent(@RequestParam Long userId, @RequestParam Long eventId) {
         eventService.deleteEvent(userId, eventId);
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @PostMapping("/uploadEvent")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("id") String id) {
+
+        System.out.println("qqq" + id);
+        this.eventService.uploadFile(file, id);
+
+//        return ResponseEntity.ok("Файл успешно сохранен");
+        return new ResponseEntity<>("успех", HttpStatus.OK);
     }
 
 

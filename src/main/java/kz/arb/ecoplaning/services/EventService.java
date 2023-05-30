@@ -2,6 +2,7 @@ package kz.arb.ecoplaning.services;
 
 import kz.arb.ecoplaning.models.EventDto;
 import kz.arb.ecoplaning.models.EventList;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface EventService {
 
     List<EventList> getEventListByUser(Long userID);
 
-    void saveEvent(EventDto event);
+    EventDto saveEvent(EventDto event);
 
     List<EventDto> getAllEventByEventDayAfter();
 
@@ -19,4 +20,5 @@ public interface EventService {
 
     EventDto getEventDtoByID(Long id);
 
+    void uploadFile(MultipartFile file, String id);
 }
