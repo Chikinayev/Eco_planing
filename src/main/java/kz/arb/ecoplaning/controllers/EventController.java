@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,9 +40,12 @@ public class EventController {
     }
 
     @PostMapping("/getEventByName")
-    public ResponseEntity<List<EventDto>> getEventByName(@RequestBody String name) {
-        System.out.println("aaaaa"+ name);
-        List<EventDto> eventByName = eventService.getEventByName(name.toLowerCase());
+    public ResponseEntity<List<EventDto>> getEventByName(@RequestBody String find) {
+        System.out.println("aaaaa"+ find);
+        if (find.isEmpty() || find == null){
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        }
+        List<EventDto> eventByName = eventService.getEventByName(find.toLowerCase());
 
         return new ResponseEntity<>(eventByName, HttpStatus.OK);
     }
