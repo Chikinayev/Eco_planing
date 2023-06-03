@@ -8,6 +8,10 @@ import kz.arb.ecoplaning.services.EventService;
 import kz.arb.ecoplaning.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,8 +55,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDto> getEventByName(String name) {
-        List<Event> events = eventRepository.findByTitleContaining(name);
-        System.out.println("sssss" + events.size());
+        Page<Event> events = eventRepository.findAllByTitleContainingIgnoreCaseAndEventDayAfter(name, LocalDateTime.now(), PageRequest.of(1,1));
+        System.out.println("sssss" + events.getTotalElements());
         List<EventDto> eventDtos = new ArrayList<>();
 
         for (Event event: events) {
@@ -60,6 +64,14 @@ public class EventServiceImpl implements EventService {
             eventDtos.add(event.getEventDto());
         }
         return eventDtos;
+    }
+
+    @Override
+    public List<EventDto> getEventByFilter(FilterPage filter) {
+        var pageable = PageRequest.of(filter.currentPage, filter.pageSize, Sort.by("id"));
+        eventRepository.findAllByTitleContainingIgnoreCaseAndEventDayAfter(filter.find, LocalDateTime.now(), pageable);
+
+        return null;
     }
 
     @Override

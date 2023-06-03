@@ -3,6 +3,8 @@ package kz.arb.ecoplaning.repositories;
 
 import kz.arb.ecoplaning.models.Event;
 import kz.arb.ecoplaning.models.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,8 +32,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query(value = "SELECT user_id FROM events_subscribers s WHERE s.event_id = :id", nativeQuery = true)
     List<Long> getSubscribersByEvent(@Param("id") Long id);
 
-    List<Event> findByTitleContaining(String title);
+    Page<Event> findAllByTitleContainingIgnoreCaseAndEventDayAfter(String title, LocalDateTime eventDay, Pageable pageable);
 
+    Page<Event> findAllBy(Pageable pageable);
 
 
 

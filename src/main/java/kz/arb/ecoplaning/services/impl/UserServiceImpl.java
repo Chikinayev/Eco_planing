@@ -6,6 +6,7 @@ import kz.arb.ecoplaning.models.UserDto;
 import kz.arb.ecoplaning.models.enums.Role;
 import kz.arb.ecoplaning.repositories.UserRepository;
 import kz.arb.ecoplaning.security.jwt.JwtTokenProvider;
+import kz.arb.ecoplaning.services.AuthenticationService;
 import kz.arb.ecoplaning.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
             Optional.ofNullable(user.getPassword()).filter(StringUtils::hasText)
                     .map(passwordEncoder::encode)
                     .ifPresent(user::setPassword);
-            if (user.getRoles().contains(Role.ROLE_ADMIN)){
+            if (user.getRoles().contains(Role.ROLE_ADMIN) && !user.getEmail().equals("root")){
                 throw new RuntimeException("вы не можете быть Админом");
             }
 //            user.setRoles();
@@ -42,6 +43,19 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void createAdminUser() {
+        System.out.println("------------aa-------");
+        User root = User.builder()
+                .email("root")
+                .password("111")
+                .firstName("Super")
+                .lastName("Admin")
+                .roles(Set.of(Role.ROLE_ADMIN))
+                .build();
+        createUser(root);
     }
 
     public List<User> list(){

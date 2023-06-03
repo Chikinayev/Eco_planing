@@ -19,6 +19,7 @@ public interface UserService {
 
     UserDto getUserDto(String token);
 
+    void createAdminUser();
 
 
 }
