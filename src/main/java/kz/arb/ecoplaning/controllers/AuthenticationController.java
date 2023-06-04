@@ -48,6 +48,10 @@ public class AuthenticationController {
         UserDto userDto = userService.getUserDto(token);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
+    @GetMapping("/test")
+    private ResponseEntity<String> test() {
+        return new ResponseEntity<>("vse ok", HttpStatus.OK);
+    }
 
 
 }
