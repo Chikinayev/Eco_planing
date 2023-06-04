@@ -48,6 +48,9 @@ public class AuthenticationController {
         UserDto userDto = userService.getUserDto(token);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
-
+    @PostMapping("/test")
+    private ResponseEntity<String> getTest(){
+        return new ResponseEntity<>("test",HttpStatus.OK);
+    }
 
 }

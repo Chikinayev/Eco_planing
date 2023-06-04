@@ -25,7 +25,7 @@ public class JwtTokenFilter extends GenericFilterBean {
         System.out.println("wwwwwww " + jwtToken);
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         String path = httpRequest.getRequestURI();
-        if (path.equals("/auth/login") || path.equals("/auth/registration")) {
+        if (path.equals("/auth/login") || path.equals("/auth/registration")|| path.equals("/auth/test")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
