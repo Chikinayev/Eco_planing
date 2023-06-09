@@ -2,7 +2,8 @@ package kz.arb.ecoplaning.services;
 
 import kz.arb.ecoplaning.models.EventDto;
 import kz.arb.ecoplaning.models.EventList;
-import kz.arb.ecoplaning.models.FilterPage;
+import kz.arb.ecoplaning.models.EventFilterPage;
+import kz.arb.ecoplaning.models.ReturnFilter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface EventService {
 
     EventDto getEventDtoByID(Long id);
     List<EventDto> getEventByName(String name);
-    List<EventDto> getEventByFilter(FilterPage filter);
+    ReturnFilter getEventByFilter(EventFilterPage filter);
 
     void uploadFile(MultipartFile file, String id);
 }

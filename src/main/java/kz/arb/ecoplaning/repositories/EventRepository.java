@@ -32,10 +32,10 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query(value = "SELECT user_id FROM events_subscribers s WHERE s.event_id = :id", nativeQuery = true)
     List<Long> getSubscribersByEvent(@Param("id") Long id);
 
-    Page<Event> findAllByTitleContainingIgnoreCaseAndEventDayAfter(String title, LocalDateTime eventDay, Pageable pageable);
+    Page<Event> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     Page<Event> findAllBy(Pageable pageable);
 
-
+    List<Event> findAllByTitleContainingIgnoreCase(String title);
 
 }

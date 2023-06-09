@@ -3,7 +3,8 @@ package kz.arb.ecoplaning.controllers;
 
 import kz.arb.ecoplaning.models.EventDto;
 import kz.arb.ecoplaning.models.EventList;
-import kz.arb.ecoplaning.models.FilterPage;
+import kz.arb.ecoplaning.models.EventFilterPage;
+import kz.arb.ecoplaning.models.ReturnFilter;
 import kz.arb.ecoplaning.services.EventService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,15 +53,16 @@ public class EventController {
     }
 
 
-    @PostMapping("/getEventByName")
-    public ResponseEntity<List<EventDto>> getEventByFilter(@RequestBody FilterPage filterPage) {
+    @PostMapping("/getEventByFilter")
+    public ResponseEntity<ReturnFilter> getEventByFilter(@RequestBody EventFilterPage filterPage) {
         if (filterPage == null){
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
+        System.out.println("qwe" + filterPage);
 
-        List<EventDto> eventByName = eventService.getEventByFilter(filterPage);
+        ReturnFilter eventByFilter = eventService.getEventByFilter(filterPage);
 
-        return new ResponseEntity<>(eventByName, HttpStatus.OK);
+        return new ResponseEntity<>(eventByFilter, HttpStatus.OK);
     }
 
 
