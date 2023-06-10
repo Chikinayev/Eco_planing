@@ -13,7 +13,8 @@ public class UserDto {
     public String phone;
     public Set<Role> role;
     public Integer rating;
-
+    public City city;
     public String description;
     public List<Long> imgIds;
+    public boolean isAdmin;
 }

@@ -1,15 +1,20 @@
 package kz.arb.ecoplaning.services.impl;
 
 
+import kz.arb.ecoplaning.models.EventFilterPage;
+import kz.arb.ecoplaning.models.ReturnFilter;
 import kz.arb.ecoplaning.models.User;
 import kz.arb.ecoplaning.models.UserDto;
 import kz.arb.ecoplaning.models.enums.Role;
 import kz.arb.ecoplaning.repositories.UserRepository;
+import kz.arb.ecoplaning.security.jwt.JwtAuthenticationException;
 import kz.arb.ecoplaning.security.jwt.JwtTokenProvider;
-import kz.arb.ecoplaning.services.AuthenticationService;
 import kz.arb.ecoplaning.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +32,8 @@ public class UserServiceImpl implements UserService {
     private final JwtTokenProvider jwtTokenProvider;
 
     public boolean createUser(User user){
-        if(userRepository.findUserByEmail(user.getEmail()).isEmpty()){
+        Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
+        if(userByEmail.isEmpty()){
             user.setActive(true);
             Optional.ofNullable(user.getPassword()).filter(StringUtils::hasText)
                     .map(passwordEncoder::encode)
@@ -41,6 +47,11 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             log.info("Saving new User with email{}:", user.getEmail());
             return true;
+        } else {
+            User existingUser = userByEmail.get();
+            if (!existingUser.isActive()) {
+                throw new JwtAuthenticationException("Вас Удалили Обращайтесь к Администратору ");
+            }
         }
         return false;
     }
@@ -99,7 +110,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserDto(String token) {
+    public UserDto getUserDtoByTokenAndRole(String token) {
         if (token != null && token.startsWith("Bearer_")) {
             token = token.substring(7);
 
@@ -109,6 +120,35 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public ReturnFilter getUserDtoByTokenAndRole(EventFilterPage filter, String role) {
+        var pageable = PageRequest.of(filter.currentPage, filter.pageSize, Sort.by("id"));
+
+        Page<User> allBy = userRepository.findAllBy(role, pageable);
+        ReturnFilter returnFilter = new ReturnFilter();
+        returnFilter.userDtos =  new ArrayList<>();
+
+        allBy.stream()
+//                .filter(user -> !user.getRoles().contains(Role.ROLE_ADMIN))
+                .forEach(value -> returnFilter.userDtos.add(value.getDto()));
+
+        returnFilter.filter = new EventFilterPage();
+        returnFilter.filter.totalItems = allBy.getTotalElements();
+        returnFilter.filter.currentPage = allBy.getNumber();
+
+        return returnFilter;
+    }
+
+    @Override
+    public void deleteUser(String token, Long userId) {
+        UserDto user = getUserDtoByTokenAndRole(token);
+        if (user.isAdmin) {
+            User delUser = userRepository.getById(userId);
+            delUser.setActive(false);
+            userRepository.save(delUser);
+        }
     }
 }
 

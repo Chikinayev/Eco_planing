@@ -102,6 +102,8 @@ public class User implements UserDetails {
         userDto.phone = this.getPhoneNumber();
         userDto.imgIds = new ArrayList<>();
         userDto.description = this.getDescription();
+        userDto.city = this.city;
+        userDto.isAdmin = isAdmin();
         for (Image image: this.images){
             userDto.imgIds.add(image.getId());
         }

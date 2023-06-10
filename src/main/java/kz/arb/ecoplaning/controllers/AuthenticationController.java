@@ -1,20 +1,14 @@
 package kz.arb.ecoplaning.controllers;
 
-import kz.arb.ecoplaning.models.AuthUserDto;
-import kz.arb.ecoplaning.models.ResponseToken;
-import kz.arb.ecoplaning.models.User;
-import kz.arb.ecoplaning.models.UserDto;
+import kz.arb.ecoplaning.models.*;
 import kz.arb.ecoplaning.services.AuthenticationService;
 import kz.arb.ecoplaning.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.PermitAll;
-import java.util.List;
 
 
 @RestController
@@ -45,7 +39,7 @@ public class AuthenticationController {
 
     @PostMapping("/userDto")
     private ResponseEntity<UserDto> getUserDto(@RequestHeader("Authorization") String token ) {
-        UserDto userDto = userService.getUserDto(token);
+        UserDto userDto = userService.getUserDtoByTokenAndRole(token);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 

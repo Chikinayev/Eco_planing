@@ -1,5 +1,7 @@
 package kz.arb.ecoplaning.services;
 
+import kz.arb.ecoplaning.models.EventFilterPage;
+import kz.arb.ecoplaning.models.ReturnFilter;
 import kz.arb.ecoplaning.models.User;
 import kz.arb.ecoplaning.models.UserDto;
 
@@ -17,9 +19,13 @@ public interface UserService {
 
     User findUserById(Long id);
 
-    UserDto getUserDto(String token);
+    UserDto getUserDtoByTokenAndRole(String token);
+
+    ReturnFilter getUserDtoByTokenAndRole(EventFilterPage filterPage, String role);
 
     void createAdminUser();
+
+    void deleteUser(String token, Long userId);
 
 
 }
