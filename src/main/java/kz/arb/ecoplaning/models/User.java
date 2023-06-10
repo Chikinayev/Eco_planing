@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Column(name = "active")
     private boolean active;
     @Column(name = "city")
-    private String city;
+    private City city;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Image> images = new ArrayList<>();
     @Column(name = "password")

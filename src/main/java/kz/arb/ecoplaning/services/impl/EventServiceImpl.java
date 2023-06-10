@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,7 +54,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDto> getEventByName(String name) {
-        Page<Event> events = eventRepository.findAllByTitleContainingIgnoreCaseAndEventDayAfter(name, LocalDateTime.now(), PageRequest.of(1,1));
+        Page<Event> events = eventRepository.findAllByTitleContainingIgnoreCase(name, PageRequest.of(1,1));
         System.out.println("sssss" + events.getTotalElements());
         List<EventDto> eventDtos = new ArrayList<>();
 
@@ -67,11 +66,24 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDto> getEventByFilter(FilterPage filter) {
+    public ReturnFilter getEventByFilter(EventFilterPage filter) {
         var pageable = PageRequest.of(filter.currentPage, filter.pageSize, Sort.by("id"));
-        eventRepository.findAllByTitleContainingIgnoreCaseAndEventDayAfter(filter.find, LocalDateTime.now(), pageable);
 
-        return null;
+        Page<Event> eventPage ;
+        if (filter.find != null) {
+            eventPage = eventRepository.findAllByTitleContainingIgnoreCase(filter.find, pageable);
+        }else {
+            eventPage = eventRepository.findAllBy(pageable);
+        }
+        ReturnFilter returnFilter = new ReturnFilter();
+        returnFilter.eventDtoList = new ArrayList<>();
+        eventPage.forEach(value -> returnFilter.eventDtoList.add(value.getEventDto()));
+
+        returnFilter.filter = new EventFilterPage();
+        returnFilter.filter.totalItems = eventPage.getTotalElements();
+        returnFilter.filter.currentPage = eventPage.getNumber();
+
+        return returnFilter;
     }
 
     @Override
