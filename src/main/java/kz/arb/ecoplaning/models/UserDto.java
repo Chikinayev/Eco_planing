@@ -17,4 +17,5 @@ public class UserDto {
     public String description;
     public List<Long> imgIds;
     public boolean isAdmin;
+    public boolean isOrganizer;
 }
