@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     private final UserService userService;
+
     @GetMapping("/registration")
     public String registration(){
         return "registration";
     }
+
     @GetMapping("/login")
     public String login(){
         return "login";
     }
+
     @PostMapping("/registration")
     public String registration(User user, Model model){
         if(!userService.createUser(user)){
@@ -41,5 +44,6 @@ public class UserController {
         return "user-profile";
     }
 
+    
 
 }
