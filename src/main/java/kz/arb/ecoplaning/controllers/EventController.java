@@ -95,13 +95,13 @@ public class EventController {
     }
 
     @PostMapping("/uploadEvent")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("id") String id) {
+    public ResponseEntity<Void> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("id") String id) {
 
         System.out.println("qqq" + id);
         this.eventService.uploadFile(file, id);
 
 //        return ResponseEntity.ok("Файл успешно сохранен");
-        return new ResponseEntity<>("успех", HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 
