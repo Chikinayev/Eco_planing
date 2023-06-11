@@ -39,6 +39,8 @@ public class User implements UserDetails {
     private String password;
     @Column(name = "Description")
     private String description;
+    @Column(name = "isOrganizerActive")
+    private boolean isOrganizerActive;
     @Column(name = "rating")
     private Integer rating;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -106,6 +108,7 @@ public class User implements UserDetails {
         userDto.description = this.getDescription();
         userDto.city = this.city;
         userDto.isAdmin = isAdmin();
+        userDto.isOrganizerActive = this.isOrganizerActive;
         userDto.isOrganizer = isOrganizer();
         for (Image image: this.images){
             userDto.imgIds.add(image.getId());

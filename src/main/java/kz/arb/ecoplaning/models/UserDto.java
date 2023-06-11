@@ -16,6 +16,7 @@ public class UserDto {
     public City city;
     public String description;
     public List<Long> imgIds;
+    public boolean isOrganizerActive;
     public boolean isAdmin;
     public boolean isOrganizer;
 }
