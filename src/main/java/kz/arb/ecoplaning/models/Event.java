@@ -82,6 +82,7 @@ public class Event {
         eventDto.eventCreatedDate = this.getEventCreatedDate();
         eventDto.eventDay = this.getEventDay();
         eventDto.subscribersCount = this.getSubscribers().size();
+        eventDto.createUser = this.user.getDto();
         for (Image image : this.images) {
             eventDto.imageId = image.getId();
         }

@@ -42,5 +42,12 @@ public class UserControllerV2 {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    @PostMapping("/getUserById")
+    private ResponseEntity<UserDto> getUserById(@RequestParam Long userId) {
+
+        UserDto userDto = userService.findUserById(userId).getDto();
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
 
 }
