@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.*;
@@ -58,6 +57,9 @@ public class User implements UserDetails {
     public boolean isAdmin(){
         return roles.contains(Role.ROLE_ADMIN);
     }
+    public boolean isOrganizer(){
+        return roles.contains(Role.ROLE_ORGANIZER);
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -104,6 +106,7 @@ public class User implements UserDetails {
         userDto.description = this.getDescription();
         userDto.city = this.city;
         userDto.isAdmin = isAdmin();
+        userDto.isOrganizer = isOrganizer();
         for (Image image: this.images){
             userDto.imgIds.add(image.getId());
         }
