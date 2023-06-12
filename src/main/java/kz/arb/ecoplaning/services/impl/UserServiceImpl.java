@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
         if(userByEmail.isEmpty()){
             user.setActive(true);
+            user.setOrganizerActive(false);
             Optional.ofNullable(user.getPassword()).filter(StringUtils::hasText)
                     .map(passwordEncoder::encode)
                     .ifPresent(user::setPassword);
@@ -147,6 +148,16 @@ public class UserServiceImpl implements UserService {
         if (user.isAdmin) {
             User delUser = userRepository.getById(userId);
             delUser.setActive(false);
+            userRepository.save(delUser);
+        }
+    }
+
+    @Override
+    public void changeOrganizerActive(String token, Long userId) {
+        UserDto user = getUserDtoByTokenAndRole(token);
+        if (user.isAdmin) {
+            User delUser = userRepository.getById(userId);
+            delUser.setOrganizerActive(true);
             userRepository.save(delUser);
         }
     }

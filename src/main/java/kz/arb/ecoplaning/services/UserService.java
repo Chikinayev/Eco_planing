@@ -27,5 +27,7 @@ public interface UserService {
 
     void deleteUser(String token, Long userId);
 
+    void changeOrganizerActive(String token, Long userId);
+
 
 }

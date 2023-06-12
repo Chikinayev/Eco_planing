@@ -48,6 +48,13 @@ public class UserControllerV2 {
         UserDto userDto = userService.findUserById(userId).getDto();
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
+    @PostMapping("/organizerActive")
+    private ResponseEntity<Void> organizerActive(@RequestHeader("Authorization") String token,
+                                                    @RequestParam Long userId) {
+
+        userService.changeOrganizerActive(token, userId);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 
 
 }
