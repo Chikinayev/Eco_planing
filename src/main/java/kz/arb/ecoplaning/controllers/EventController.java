@@ -73,6 +73,17 @@ public class EventController {
         return new ResponseEntity<>(eventByFilter, HttpStatus.OK);
     }
 
+    @PostMapping("/getEventReverseByFilter")
+    public ResponseEntity<ReturnFilter> getEventReverseByFilter(@RequestBody EventFilterPage filterPage) {
+        if (filterPage == null){
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+        System.out.println("qwe" + filterPage);
+
+        ReturnFilter eventByFilter = eventService.getEventReverseByFilter(filterPage);
+
+        return new ResponseEntity<>(eventByFilter, HttpStatus.OK);
+    }
 
 
 

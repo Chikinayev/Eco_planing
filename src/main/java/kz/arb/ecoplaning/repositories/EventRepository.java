@@ -40,6 +40,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     Page<Event> findAllByEventDayAfter(LocalDateTime currentDateTime, Pageable pageable);
+    Page<Event> findAllByEventDayBefore(LocalDateTime currentDateTime, Pageable pageable);
 
     List<Event> findAllByTitleContainingIgnoreCase(String title);
 

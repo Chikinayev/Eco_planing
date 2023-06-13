@@ -99,6 +99,26 @@ public class EventServiceImpl implements EventService {
 
         return returnFilter;
     }
+    @Override
+    public ReturnFilter getEventReverseByFilter(EventFilterPage filter) {
+        var pageable = PageRequest.of(filter.currentPage, filter.pageSize, Sort.by("id"));
+
+        Page<Event> eventPage ;
+        if (filter.find != null) {
+            eventPage = eventRepository.findAllByTitleContainingIgnoreCase(filter.find, pageable);
+        }else {
+            eventPage = eventRepository.findAllByEventDayBefore(LocalDateTime.now(), pageable);
+        }
+        ReturnFilter returnFilter = new ReturnFilter();
+        returnFilter.eventDtoList = new ArrayList<>();
+        eventPage.forEach(value -> returnFilter.eventDtoList.add(value.getEventDto()));
+
+        returnFilter.filter = new EventFilterPage();
+        returnFilter.filter.totalItems = eventPage.getTotalElements();
+        returnFilter.filter.currentPage = eventPage.getNumber();
+
+        return returnFilter;
+    }
 
     @Override
     public void uploadFile(MultipartFile file, String id) {

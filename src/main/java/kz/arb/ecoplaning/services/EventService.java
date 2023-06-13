@@ -25,6 +25,7 @@ public interface EventService {
     EventDto getEventDtoByID(Long id);
     List<EventDto> getEventByName(String name);
     ReturnFilter getEventByFilter(EventFilterPage filter);
+    ReturnFilter getEventReverseByFilter(EventFilterPage filter);
 
     void uploadFile(MultipartFile file, String id);
 }
