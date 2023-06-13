@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/file")
 public class FileController {
 

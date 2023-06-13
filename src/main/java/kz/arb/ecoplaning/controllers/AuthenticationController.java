@@ -12,6 +12,7 @@ import javax.annotation.security.PermitAll;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/auth")
 public class AuthenticationController {
     private AuthenticationService authenticationService;
