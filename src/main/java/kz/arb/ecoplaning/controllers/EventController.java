@@ -33,6 +33,14 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
+     @PostMapping("/getEventSubscribeByUser")
+    public ResponseEntity<List<EventList>> getEventSubscribeByUser(@RequestBody Long userID) {
+
+        List<EventList> events = eventService.getEventSubscribeByUser(userID);
+
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
+
     @PostMapping("/eventDtoByID")
     public ResponseEntity<EventDto> getEventDto(@RequestBody Long userID) {
 

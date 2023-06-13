@@ -20,6 +20,11 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findEventByTitle(String title);
 
     List<Event> getEventByUser(User user);
+    @Query(value = "select * from events e where e.id in (select es.event_id from events_subscribers es where es.user_id = :id)", nativeQuery = true)
+    List<Event> findAllBy(Long id);
+
+
+//    select e from Event e where e.id in (select es from events_subscribers es where es.id = :user)
 
     List<Event> findByEventDayAfter(LocalDateTime currentDateTime);
     @Modifying

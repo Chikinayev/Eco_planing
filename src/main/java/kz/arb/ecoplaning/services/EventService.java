@@ -12,6 +12,8 @@ public interface EventService {
 
     List<EventList> getEventListByUser(Long userID);
 
+    List<EventList> getEventSubscribeByUser(Long userID);
+
     EventDto saveEvent(EventDto event);
 
     List<EventDto> getAllEventByEventDayAfter();

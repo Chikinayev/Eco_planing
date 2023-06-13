@@ -41,6 +41,20 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<EventList> getEventSubscribeByUser(Long userID) {
+        User user = userService.findUserById(userID);
+        List<EventList> eventLists = new ArrayList<>();
+        List<Event> events = eventRepository.findAllBy(user.getId());
+        if (events.isEmpty()) {
+            return Collections.emptyList();
+        }
+        for (Event event: events) {
+            eventLists.add(event.getEventList());
+        }
+        return eventLists;
+    }
+
+    @Override
     public EventDto getEventDtoByID(Long id) {
         Event event = eventRepository.getById(id);
 
