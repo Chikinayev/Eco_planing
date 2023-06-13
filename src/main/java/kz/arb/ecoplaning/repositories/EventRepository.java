@@ -24,7 +24,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findAllBy(Long id);
 
 
-//    select e from Event e where e.id in (select es from events_subscribers es where es.id = :user)
 
     List<Event> findByEventDayAfter(LocalDateTime currentDateTime);
     @Modifying

@@ -108,6 +108,7 @@ public class EventServiceImpl implements EventService {
 
             Image image = Image.ofEvent(file, event);
             imageRepository.save(image);
+            System.out.println("goood all");
         } catch (Exception e) {
             throw new RuntimeException("Произашло ошибка при загрузке :: " + e.getMessage());
         }
