@@ -87,7 +87,7 @@ public class EventServiceImpl implements EventService {
         if (filter.find != null) {
             eventPage = eventRepository.findAllByTitleContainingIgnoreCase(filter.find, pageable);
         }else {
-            eventPage = eventRepository.findAllBy(pageable);
+            eventPage = eventRepository.findAllByEventDayAfter(LocalDateTime.now(), pageable);
         }
         ReturnFilter returnFilter = new ReturnFilter();
         returnFilter.eventDtoList = new ArrayList<>();
